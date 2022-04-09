@@ -25,4 +25,19 @@ export class ImagesService {
       }),
     )
   };
+
+  getImagesByUser(id: string) {
+    return this.http.get<Image[]>(environment.apiUrl + `/images?user=${id}`).pipe(
+      map(response => {
+        return response.map(image => {
+          return new ImageModel(
+            image._id,
+            image.user,
+            image.name,
+            image.image,
+          )
+        });
+      }),
+    )
+  };
 }

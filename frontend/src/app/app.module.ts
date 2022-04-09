@@ -28,6 +28,9 @@ import { MatInputModule } from '@angular/material/input';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { AppStoreModule } from './app-store.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MyImagesComponent } from './my-images/my-images.component';
+import { ModalComponent } from './ui/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -48,7 +51,9 @@ const socialConfig: SocialAuthServiceConfig = {
     RegisterComponent,
     ImagesComponent,
     ValidateIdenticalDirective,
-    LayoutComponent
+    LayoutComponent,
+    MyImagesComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,8 @@ const socialConfig: SocialAuthServiceConfig = {
     MatProgressSpinnerModule,
     AppStoreModule,
     SocialLoginModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

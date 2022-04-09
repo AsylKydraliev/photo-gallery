@@ -6,7 +6,13 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../types';
 import { User } from '../../models/user.model';
-import { fetchImagesFailure, fetchImagesRequest, fetchImagesSuccess } from './images.actions';
+import {
+  fetchImagesFailure,
+  fetchImagesRequest,
+  fetchImagesSuccess, fetchImagesUserFailure,
+  fetchImagesUserRequest,
+  fetchImagesUserSuccess
+} from './images.actions';
 import { ImagesService } from '../../services/images.service';
 
 @Injectable()
@@ -36,15 +42,15 @@ export class ImagesEffects {
   //     )
   //   )));
   //
-  // fetchCocktailsByUser = createEffect(() => this.actions.pipe(
-  //   ofType(fetchCocktailsUserRequest),
-  //   mergeMap(({userId}) => this.cocktailsService.getCocktailsByUser(userId).pipe(
-  //       map(cocktails => fetchCocktailsUserSuccess({cocktails})),
-  //       catchError(() => of(fetchCocktailsUserFailure({
-  //         error: 'Something went wrong'
-  //       })))
-  //     )
-  //   )));
+  fetchImagesByUser = createEffect(() => this.actions.pipe(
+    ofType(fetchImagesUserRequest),
+    mergeMap(({userId}) => this.imageService.getImagesByUser(userId).pipe(
+        map(images => fetchImagesUserSuccess({images})),
+        catchError(() => of(fetchImagesUserFailure({
+          error: 'Something went wrong'
+        })))
+      )
+    )));
   //
   // createCocktail = createEffect(() => this.actions.pipe(
   //   ofType(createCocktailRequest),

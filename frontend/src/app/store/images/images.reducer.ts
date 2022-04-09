@@ -1,6 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { ImagesState } from '../types';
-import { fetchImagesFailure, fetchImagesRequest, fetchImagesSuccess } from './images.actions';
+import {
+  fetchImagesFailure,
+  fetchImagesRequest,
+  fetchImagesSuccess, fetchImagesUserFailure,
+  fetchImagesUserRequest,
+  fetchImagesUserSuccess
+} from './images.actions';
 
 const initialState: ImagesState = {
   images: [],
@@ -21,9 +27,9 @@ export const imagesReducer = createReducer(
   // on(fetchCocktailInfoSuccess, (state, {cocktail}) => ({...state, fetchLoading: false, cocktail})),
   // on(fetchCocktailInfoFailure, (state, {error}) => ({...state, fetchLoading: true, fetchError: error})),
   //
-  // on(fetchCocktailsUserRequest, state => ({...state, fetchLoading: true})),
-  // on(fetchCocktailsUserSuccess, (state, {cocktails}) => ({...state, fetchLoading: false, cocktails})),
-  // on(fetchCocktailsUserFailure, (state, {error}) => ({...state, fetchLoading: true, fetchError: error})),
+  on(fetchImagesUserRequest, state => ({...state, fetchLoading: true})),
+  on(fetchImagesUserSuccess, (state, {images}) => ({...state, fetchLoading: false, images})),
+  on(fetchImagesUserFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
   //
   // on(createCocktailRequest, state => ({...state, createLoading: true})),
   // on(createCocktailSuccess, state => ({...state, createLoading: false})),

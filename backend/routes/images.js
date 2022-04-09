@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
             return res.send(imagesByUser);
         }
 
-        const images = await Image.find();
+        const images = await Image.find().populate('user', 'displayName');
 
         return res.send(images);
     }catch (e) {

@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { Image } from '../models/image.model';
 import { fetchImagesRequest } from '../store/images/images.actions';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../ui/modal/modal.component';
 
 @Component({
   selector: 'app-images',
@@ -15,17 +18,50 @@ export class ImagesComponent implements OnInit {
   images: Observable<Image[]>;
   loading: Observable<boolean>;
   api = environment.apiUrl;
+  user: Observable<User | null>;
+  modelComponent!: ModalComponent;
+  openModal = false;
+  imagesData!: Image[];
+  image!: Image;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);
     this.loading = store.select(state => state.images.fetchLoading);
+    this.user = store.select(state => state.users.user);
+    this.images.subscribe(image => {
+      this.imagesData = image;
+    })
   }
 
   ngOnInit() {
     this.store.dispatch(fetchImagesRequest());
   }
 
-  onRemove(_id: string) {
+  // isOpen(id: string) {
+  //   this.imagesData.forEach(image => {
+  //     if(id === image._id){
+  //       this.image = image;
+  //     }
+  //   })
+  //   this.openModal = true;
+  // }
+  //
+  // isClose() {
+  //   this.openModal = false;
+  // }
 
+  openDialog(id: string) {
+    this.imagesData.forEach(image => {
+      if(id === image._id){
+        this.image = image;
+      }
+    })
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
+
+export class DialogContentExampleDialog {}
