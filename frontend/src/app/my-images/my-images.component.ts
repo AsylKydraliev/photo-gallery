@@ -25,15 +25,13 @@ export class MyImagesComponent implements OnInit, OnDestroy {
   imageUsername!: string;
   user: Observable<User | null>;
   userId!: string | undefined;
+  removeLoading: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute,  public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);
     this.loading = store.select(state => state.images.fetchLoading);
+    this.removeLoading = store.select(state => state.images.removeLoading);
     this.user = store.select(state => state.users.user);
-
-    this.userSub = this.user.subscribe(user => {
-      this.userId = user?._id;
-    })
 
     this.imageSub = this.images.subscribe(image => {
       image.forEach(item => {
@@ -41,9 +39,13 @@ export class MyImagesComponent implements OnInit, OnDestroy {
         this.imageUsername = item.user.displayName;
       })
     })
+
+    this.userSub = this.user.subscribe(user => {
+      this.userId = user?._id;
+    })
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.store.dispatch(fetchImagesUserRequest({userId: params['id']}));
     })

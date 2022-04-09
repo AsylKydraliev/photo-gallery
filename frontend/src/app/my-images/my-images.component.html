@@ -35,7 +35,7 @@
       <mat-card-title>{{ image.name }}</mat-card-title>
       <hr>
       <mat-card-actions>
-        <mat-icon *ngIf="imageUser === userId" (click)="onRemove(image._id)">delete</mat-icon>
+        <mat-icon *ngIf="userId === image.user._id" (click)="onRemove(image._id)">delete</mat-icon>
       </mat-card-actions>
     </mat-card>
   </div>

@@ -27,7 +27,7 @@ export const imagesReducer = createReducer(
 
   on(fetchImageInfoRequest, state => ({...state, fetchLoading: true})),
   on(fetchImageInfoSuccess, (state, {image}) => ({...state, fetchLoading: false, image})),
-  on(fetchImageInfoFailure, (state, {error}) => ({...state, fetchLoading: true, fetchError: error})),
+  on(fetchImageInfoFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
 
   on(fetchImagesUserRequest, state => ({...state, fetchLoading: true})),
   on(fetchImagesUserSuccess, (state, {images}) => ({...state, fetchLoading: false, images})),

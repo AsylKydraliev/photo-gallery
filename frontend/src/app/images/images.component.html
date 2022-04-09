@@ -13,7 +13,7 @@
           (click)="openDialog(image._id)"
         >
         <mat-card-actions>
-          <p>{{ image.name }}</p>
+          <mat-card-title>{{ image.name }}</mat-card-title>
           <span>Photo by </span>
           <a [routerLink]="['images', image.user._id]"> {{ image.user.displayName }}</a>
         </mat-card-actions>

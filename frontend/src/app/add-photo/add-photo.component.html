@@ -9,13 +9,13 @@
       <mat-form-field appearance="outline">
         <mat-label>Title</mat-label>
         <input name="name" required matInput ngModel #name="ngModel"/>
-        <mat-error *ngIf="name.touched && name.hasError('required')">Name image is required!</mat-error>
+        <mat-error *ngIf="name.touched && name.hasError('required')">Name is required!</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Image</mat-label>
         <app-file-input name="image" required ngModel #image="ngModel"></app-file-input>
-        <mat-error *ngIf="image.touched && image.hasError('required')">Name image is required!</mat-error>
+        <mat-error *ngIf="image.touched && image.hasError('required')">Image is required!</mat-error>
       </mat-form-field>
 
       <ng-template #btn>
