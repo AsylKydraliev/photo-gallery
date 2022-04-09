@@ -3,10 +3,12 @@ import { Observable, Subscription } from 'rxjs';
 import { Image } from '../models/image.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/types';
-import { fetchImagesUserRequest, removeImageRequest } from '../store/images/images.actions';
+import { fetchImageInfoRequest, fetchImagesUserRequest, removeImageRequest } from '../store/images/images.actions';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
+import { DialogExampleComponent } from '../dialog-example/dialog-example.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-images',
@@ -24,7 +26,7 @@ export class MyImagesComponent implements OnInit, OnDestroy {
   user: Observable<User | null>;
   userId!: string | undefined;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute,  public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);
     this.loading = store.select(state => state.images.fetchLoading);
     this.user = store.select(state => state.users.user);
@@ -51,9 +53,18 @@ export class MyImagesComponent implements OnInit, OnDestroy {
     this.store.dispatch(removeImageRequest({id: _id}));
   }
 
+  openDialog(id: string) {
+    this.store.dispatch(fetchImageInfoRequest({id}));
+
+    const dialogRef = this.dialog.open(DialogExampleComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   ngOnDestroy() {
     this.imageSub.unsubscribe();
     this.userSub.unsubscribe();
   }
-
 }

@@ -41,6 +41,14 @@ export class ImagesService {
     )
   };
 
+  getOne(id: string) {
+    return this.http.get<Image>(environment.apiUrl + '/images/' + id).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
   createPhoto(imageData: ImageData) {
     const formData = new FormData();
     formData.append('user', imageData.user);

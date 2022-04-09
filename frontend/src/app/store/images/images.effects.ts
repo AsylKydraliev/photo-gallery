@@ -8,7 +8,7 @@ import { AppState } from '../types';
 import { User } from '../../models/user.model';
 import {
   createImageFailure,
-  createImageRequest, createImageSuccess,
+  createImageRequest, createImageSuccess, fetchImageInfoFailure, fetchImageInfoRequest, fetchImageInfoSuccess,
   fetchImagesFailure,
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
@@ -34,16 +34,16 @@ export class ImagesEffects {
     )
   )));
 
-  // fetchCocktailInfo = createEffect(() => this.actions.pipe(
-  //   ofType(fetchCocktailInfoRequest),
-  //   mergeMap(({id}) => this.cocktailsService.getOneCocktail(id).pipe(
-  //       map(cocktail => fetchCocktailInfoSuccess({cocktail})),
-  //       catchError(() => of(fetchCocktailInfoFailure({
-  //         error: 'Something went wrong'
-  //       })))
-  //     )
-  //   )));
-  //
+  fetchImageInfo = createEffect(() => this.actions.pipe(
+    ofType(fetchImageInfoRequest),
+    mergeMap(({id}) => this.imageService.getOne(id).pipe(
+        map(image => fetchImageInfoSuccess({image})),
+        catchError(() => of(fetchImageInfoFailure({
+          error: 'Something went wrong'
+        })))
+      )
+    )));
+
   fetchImagesByUser = createEffect(() => this.actions.pipe(
     ofType(fetchImagesUserRequest),
     mergeMap(({userId}) => this.imageService.getImagesByUser(userId).pipe(

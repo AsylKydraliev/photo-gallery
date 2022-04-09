@@ -33,6 +33,7 @@ import { ModalComponent } from './ui/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
 import { FileInputComponent } from './ui/file-input/file-input.component';
+import { DialogExampleComponent } from './dialog-example/dialog-example.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -57,8 +58,10 @@ const socialConfig: SocialAuthServiceConfig = {
     MyImagesComponent,
     ModalComponent,
     AddPhotoComponent,
-    FileInputComponent
+    FileInputComponent,
+    DialogExampleComponent,
   ],
+  entryComponents: [DialogExampleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

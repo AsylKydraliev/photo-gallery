@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/types';
 import { Observable, Subscription } from 'rxjs';
 import { Image } from '../models/image.model';
-import { fetchImagesRequest } from '../store/images/images.actions';
+import { fetchImageInfoRequest, fetchImagesRequest } from '../store/images/images.actions';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../ui/modal/modal.component';
+import { DialogExampleComponent } from '../dialog-example/dialog-example.component';
 
 @Component({
   selector: 'app-images',
@@ -20,7 +21,6 @@ export class ImagesComponent implements OnInit, OnDestroy {
   api = environment.apiUrl;
   user: Observable<User | null>;
   modelComponent!: ModalComponent;
-  openModal = false;
   imagesData!: Image[];
   image!: Image;
   imageSub!: Subscription;
@@ -38,26 +38,10 @@ export class ImagesComponent implements OnInit, OnDestroy {
     this.store.dispatch(fetchImagesRequest());
   }
 
-  // isOpen(id: string) {
-  //   this.imagesData.forEach(image => {
-  //     if(id === image._id){
-  //       this.image = image;
-  //     }
-  //   })
-  //   this.openModal = true;
-  // }
-  //
-  // isClose() {
-  //   this.openModal = false;
-  // }
-
   openDialog(id: string) {
-    this.imagesData.forEach(image => {
-      if(id === image._id){
-        this.image = image;
-      }
-    })
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    this.store.dispatch(fetchImageInfoRequest({id}));
+
+    const dialogRef = this.dialog.open(DialogExampleComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -69,4 +53,3 @@ export class ImagesComponent implements OnInit, OnDestroy {
   }
 }
 
-export class DialogContentExampleDialog {}

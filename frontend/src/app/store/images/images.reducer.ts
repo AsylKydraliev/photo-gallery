@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { ImagesState } from '../types';
 import {
   createImageFailure,
-  createImageRequest, createImageSuccess,
+  createImageRequest, createImageSuccess, fetchImageInfoFailure, fetchImageInfoRequest, fetchImageInfoSuccess,
   fetchImagesFailure,
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
@@ -25,10 +25,10 @@ export const imagesReducer = createReducer(
   on(fetchImagesSuccess, (state, {images}) => ({...state, fetchLoading: false, images})),
   on(fetchImagesFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
 
-  // on(fetchCocktailInfoRequest, state => ({...state, fetchLoading: true})),
-  // on(fetchCocktailInfoSuccess, (state, {cocktail}) => ({...state, fetchLoading: false, cocktail})),
-  // on(fetchCocktailInfoFailure, (state, {error}) => ({...state, fetchLoading: true, fetchError: error})),
-  //
+  on(fetchImageInfoRequest, state => ({...state, fetchLoading: true})),
+  on(fetchImageInfoSuccess, (state, {image}) => ({...state, fetchLoading: false, image})),
+  on(fetchImageInfoFailure, (state, {error}) => ({...state, fetchLoading: true, fetchError: error})),
+
   on(fetchImagesUserRequest, state => ({...state, fetchLoading: true})),
   on(fetchImagesUserSuccess, (state, {images}) => ({...state, fetchLoading: false, images})),
   on(fetchImagesUserFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),

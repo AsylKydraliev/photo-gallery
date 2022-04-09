@@ -12,7 +12,7 @@ export type UserState = {
 
 export type ImagesState = {
   images: Image[],
-  image: null,
+  image: Image | null,
   fetchLoading: boolean,
   fetchError: string | null,
   createLoading: boolean,

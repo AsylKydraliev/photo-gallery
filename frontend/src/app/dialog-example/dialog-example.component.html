@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ imageData?.name }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div>
+    <img
+      *ngIf="imageData?.image"
+      mat-card-image
+      [src]="api + '/uploads/' + imageData?.image"
+      alt="cocktail image"
+    >
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

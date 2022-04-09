@@ -30,7 +30,12 @@
       <mat-card-header fxLayoutAlign="space-between">
         <mat-card-title>{{ image.name }}</mat-card-title>
       </mat-card-header>
-      <img mat-card-image [src]="api + '/uploads/' + image.image" alt="cocktail image">
+      <img
+        mat-card-image
+        [src]="api + '/uploads/' + image.image"
+        alt="cocktail image"
+        (click)="openDialog(image._id)"
+      >
       <mat-card-actions>
         <button mat-button *ngIf="imageUser === userId" (click)="onRemove(image._id)">DELETE</button>
       </mat-card-actions>
