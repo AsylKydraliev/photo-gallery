@@ -1,0 +1,59 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <div *appRoles="['admin', 'user']">
+        <a mat-list-item routerLink="/addCocktail">Add new coctail</a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar
+      color="primary"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <a routerLink="/" mat-button fxLayoutAlign="center" class="logoLink">
+            <span class="material-icons">
+             local_bar
+            </span>
+          Cocktails recipes
+        </a>
+      </div>
+      <nav *ngIf="!(user | async) else userMenu">
+        <a mat-button routerLink="register">REGISTER</a>
+        <a mat-button routerLink="login">SIGN IN</a>
+      </nav>
+    </mat-toolbar>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #userMenu>
+  <nav>
+    <a mat-button [routerLink]="['cocktails', (user | async)?._id]" class="cocktail-link">My cocktails</a>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="avatar">
+      <img *ngIf="(user | async)?.avatar" [src]="api + '/uploads/' + (user | async)?.avatar" alt="avatar user">
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>{{ (user | async)?.displayName }}</button>
+      <a mat-menu-item>Profile</a>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </nav>
+</ng-template>
