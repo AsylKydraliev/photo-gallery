@@ -30,18 +30,31 @@ const run = async () => {
     });
 
     await Image.create({
-        user: user,
-        name: 'Travel photo',
-        image: 'travel.jpeg',
-    }, {
-        user: admin,
-        name: 'Highway',
-        image: 'highway.jpeg',
-    }, {
-        user: user,
-        name: 'Nature',
-        image: 'nature.jpeg',
-    });
+            user: user,
+            name: 'Travel photo',
+            image: 'travel.jpeg',
+        }, {
+            user: admin,
+            name: 'Highway',
+            image: 'highway.jpeg',
+        }, {
+            user: user,
+            name: 'Nature',
+            image: 'nature.jpeg',
+        },{
+            user: admin,
+            name: 'Lake',
+            image: 'lake.jpeg',
+        },{
+            user: admin,
+            name: 'The Most',
+            image: 'most.jpeg',
+        },{
+            user: user,
+            name: 'Sunbeam',
+            image: 'sunbeam.jpeg',
+        }
+    );
 
     await mongoose.connection.close();
 };
