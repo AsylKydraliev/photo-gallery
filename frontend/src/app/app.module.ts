@@ -31,6 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MyImagesComponent } from './my-images/my-images.component';
 import { ModalComponent } from './ui/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddPhotoComponent } from './add-photo/add-photo.component';
+import { FileInputComponent } from './ui/file-input/file-input.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -53,7 +55,9 @@ const socialConfig: SocialAuthServiceConfig = {
     ValidateIdenticalDirective,
     LayoutComponent,
     MyImagesComponent,
-    ModalComponent
+    ModalComponent,
+    AddPhotoComponent,
+    FileInputComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { HelpersService } from '../../services/helpers.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../types';
 import { User } from '../../models/user.model';
 import {
+  createImageFailure,
+  createImageRequest, createImageSuccess,
   fetchImagesFailure,
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
@@ -51,25 +53,21 @@ export class ImagesEffects {
         })))
       )
     )));
-  //
-  // createCocktail = createEffect(() => this.actions.pipe(
-  //   ofType(createCocktailRequest),
-  //   mergeMap(({cocktailData}) => this.cocktailsService.addCocktail(cocktailData).pipe(
-  //       map(() => createCocktailSuccess()),
-  //       tap(() => {
-  //         if(this.userRole === 'admin'){
-  //           this.helpers.openSnackbar('Cocktail added');
-  //         }else {
-  //           this.helpers.openSnackbar('Your cocktail is being reviewed by a moderator');
-  //         }
-  //         void this.router.navigate(['/']);
-  //       }),
-  //       catchError(() => of(createCocktailFailure({
-  //         error: 'Something went wrong!'
-  //       })))
-  //     )
-  //   ))
-  // );
+
+  createCocktail = createEffect(() => this.actions.pipe(
+    ofType(createImageRequest),
+    mergeMap(({imageData}) => this.imageService.createPhoto(imageData).pipe(
+        map(() => createImageSuccess()),
+        tap(() => {
+          this.helpers.openSnackbar('Photo added');
+          void this.router.navigate(['/']);
+        }),
+        catchError(() => of(createImageFailure({
+          error: 'Something went wrong!'
+        })))
+      )
+    ))
+  );
   //
   // removeCocktail = createEffect(() => this.actions.pipe(
   //   ofType(removeCocktailsRequest),

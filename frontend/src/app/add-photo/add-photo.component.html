@@ -1,0 +1,33 @@
+<h1>Add cocktail</h1>
+<mat-card>
+  <mat-card-content>
+    <div class="error" *ngIf="error | async">
+      {{ error | async }}
+    </div>
+    <form (ngSubmit)="onSubmit()" fxLayout="column" #f="ngForm">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input name="name" required matInput ngModel #name="ngModel"/>
+        <mat-error *ngIf="name.touched && name.hasError('required')">Name image is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Image</mat-label>
+        <app-file-input name="image" required ngModel #image="ngModel"></app-file-input>
+        <mat-error *ngIf="image.touched && image.hasError('required')">Name image is required!</mat-error>
+      </mat-form-field>
+
+      <ng-template #btn>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="f.invalid"
+        >SAVE
+        </button>
+      </ng-template>
+      <mat-progress-bar mode="indeterminate" *ngIf="(loading | async) else btn"></mat-progress-bar>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -57,7 +57,6 @@ router.post('/', authorization, permit('user', 'admin'), upload.single('image'),
         if(req.file){
             image.image = req.file.filename;
         }
-
         await image.save();
 
         return res.send(image);

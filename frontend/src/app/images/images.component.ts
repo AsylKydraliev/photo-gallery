@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/types';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Image } from '../models/image.model';
 import { fetchImagesRequest } from '../store/images/images.actions';
 import { environment } from '../../environments/environment';
@@ -14,7 +14,7 @@ import { ModalComponent } from '../ui/modal/modal.component';
   templateUrl: './images.component.html',
   styleUrls: ['./images.component.sass']
 })
-export class ImagesComponent implements OnInit {
+export class ImagesComponent implements OnInit, OnDestroy {
   images: Observable<Image[]>;
   loading: Observable<boolean>;
   api = environment.apiUrl;
@@ -23,12 +23,13 @@ export class ImagesComponent implements OnInit {
   openModal = false;
   imagesData!: Image[];
   image!: Image;
+  imageSub!: Subscription;
 
   constructor(private store: Store<AppState>, public dialog: MatDialog) {
     this.images = store.select(state => state.images.images);
     this.loading = store.select(state => state.images.fetchLoading);
     this.user = store.select(state => state.users.user);
-    this.images.subscribe(image => {
+    this.imageSub = this.images.subscribe(image => {
       this.imagesData = image;
     })
   }
@@ -61,6 +62,10 @@ export class ImagesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  ngOnDestroy() {
+    this.imageSub.unsubscribe();
   }
 }
 

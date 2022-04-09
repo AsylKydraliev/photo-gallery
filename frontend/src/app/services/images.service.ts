@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Image, ImageModel } from '../models/image.model';
+import { Image, ImageData, ImageModel } from '../models/image.model';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -40,4 +40,16 @@ export class ImagesService {
       }),
     )
   };
+
+  createPhoto(imageData: ImageData) {
+    const formData = new FormData();
+    formData.append('user', imageData.user);
+    formData.append('name', imageData.name);
+
+    if (imageData.image) {
+      formData.append('image', imageData.image);
+    }
+
+    return this.http.post(environment.apiUrl + '/images', formData);
+  }
 }

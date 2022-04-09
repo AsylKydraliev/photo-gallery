@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { ImagesState } from '../types';
 import {
+  createImageFailure,
+  createImageRequest, createImageSuccess,
   fetchImagesFailure,
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
@@ -30,10 +32,10 @@ export const imagesReducer = createReducer(
   on(fetchImagesUserRequest, state => ({...state, fetchLoading: true})),
   on(fetchImagesUserSuccess, (state, {images}) => ({...state, fetchLoading: false, images})),
   on(fetchImagesUserFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
-  //
-  // on(createCocktailRequest, state => ({...state, createLoading: true})),
-  // on(createCocktailSuccess, state => ({...state, createLoading: false})),
-  // on(createCocktailFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
+
+  on(createImageRequest, state => ({...state, createLoading: true})),
+  on(createImageSuccess, state => ({...state, createLoading: false})),
+  on(createImageFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
   //
   // on(publishCocktailRequest, state => ({...state, publishLoading: true})),
   // on(publishCocktailSuccess, state => ({...state, publishLoading: false})),

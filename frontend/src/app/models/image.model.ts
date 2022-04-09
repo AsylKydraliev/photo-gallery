@@ -21,7 +21,6 @@ export class ImageModel {
 }
 
 export interface ImageData {
-  [key: string]: any,
   user: string,
   name: string,
   image: File | null,
