@@ -1,40 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const multer = require("multer");
 const {nanoid} = require("nanoid");
-const path = require("path");
 const User = require('../models/User');
 const config = require("../config");
 const axios = require("axios");
 
-const fetch = require('node-fetch');
-const fs = require('fs');
-
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, config.uploadPath);
-    },
-    filename: (req, file, cb) => {
-        cb(null, nanoid() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage});
-
-router.post('/', upload.single('avatar'), async (req, res, next)=>{
+router.post('/', async (req, res, next)=>{
    try{
        const user = new User({
            email: req.body.email,
            password: req.body.password,
            displayName: req.body.displayName,
-           avatar: null
        });
-
-       if(req.file){
-           user.avatar = req.file.filename;
-       }
 
        user.generateToken();
        await user.save();
@@ -119,22 +98,11 @@ router.post('/facebookLogin', async (req, res, next) => {
         }
 
         if(!user){
-            const avatarUrl = nanoid() + '.jpeg';
-
-            function downloadFile(url, path) {
-                return fetch(url).then(res => {
-                    res.body.pipe(fs.createWriteStream(path));
-                });
-            }
-
-            downloadFile(req.body.avatar, `./public/uploads/${avatarUrl}`);
-
             user = new User({
                 email: req.body.email,
                 password: nanoid(),
                 facebookId: req.body.id,
                 displayName: req.body.name,
-                avatar: avatarUrl
             })
         }
 

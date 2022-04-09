@@ -1,11 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const artists = require('./Routes/artist');
-const albums = require('./Routes/album');
-const users = require('./Routes/users');
-const tracks = require('./Routes/tracks');
-const trackHistory = require('./Routes/trackHistory');
+const users = require('./routes/users');
+const images = require('./routes/images');
 const config = require('./config');
 const app = express();
 
@@ -26,11 +23,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
-app.use('/artists', artists);
-app.use('/albums', albums);
-app.use('/tracks', tracks);
+app.use('/images', images);
 app.use('/users', users);
-app.use('/track_history', trackHistory);
 
 const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options);

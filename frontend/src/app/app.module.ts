@@ -6,9 +6,30 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './userManage/login/login.component';
 import { RegisterComponent } from './userManage/register/register.component';
-import { FacebookLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
+import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { environment } from '../environments/environment';
 import { ImagesComponent } from './images/images.component';
+import { ValidateIdenticalDirective } from './directives/validate-identical.directive';
+import { RolesDirective } from './directives/roles.directive';
+import { HasRolesDirective } from './directives/has-roles.directive';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { MatCardModule } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { LayoutComponent } from './ui/layout/layout.component';
+import { AppStoreModule } from './app-store.module';
+import { MatButtonModule } from '@angular/material/button';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -28,13 +49,38 @@ const socialConfig: SocialAuthServiceConfig = {
     LoginComponent,
     RegisterComponent,
     ImagesComponent,
+    ValidateIdenticalDirective,
+    RolesDirective,
+    HasRolesDirective,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    FormsModule,
+    HttpClientModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatListModule,
+    FlexModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    AppStoreModule,
+    SocialLoginModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: 'SocialAuthServiceConfig', useValue: socialConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

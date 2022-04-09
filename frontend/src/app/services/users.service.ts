@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { fbLoginUserData, googleLoginUserData, LoginUserData, RegisterUser, User } from '../models/user.model';
+import { fbLoginUserData, LoginUserData, RegisterUser, User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -11,16 +11,7 @@ export class UsersService {
   constructor(private http: HttpClient) {}
 
   registerUser(userData: RegisterUser){
-    const formData = new FormData();
-    formData.append('email', userData.email);
-    formData.append('displayName', userData.displayName);
-    formData.append('password', userData.password);
-
-    if (userData.avatar) {
-      formData.append('avatar', userData.avatar);
-    }
-
-    return this.http.post<User>(environment.apiUrl + '/users', formData);
+    return this.http.post<User>(environment.apiUrl + '/users', userData);
   }
 
   loginUser(userData: LoginUserData){
@@ -29,10 +20,6 @@ export class UsersService {
 
   loginFb(userData: fbLoginUserData){
     return this.http.post<User>(environment.apiUrl + '/users/facebookLogin', userData);
-  }
-
-  loginGoogle(userData: googleLoginUserData){
-    return this.http.post<User>(environment.apiUrl + '/users/googleLogin', userData);
   }
 
   logoutUser(){
