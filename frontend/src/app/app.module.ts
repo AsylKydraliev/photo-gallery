@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
 import { FileInputComponent } from './ui/file-input/file-input.component';
 import { DialogExampleComponent } from './dialog-example/dialog-example.component';
+import { NotFoundComponent } from './not-found.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -58,6 +59,7 @@ const socialConfig: SocialAuthServiceConfig = {
     AddPhotoComponent,
     FileInputComponent,
     DialogExampleComponent,
+    NotFoundComponent
   ],
   entryComponents: [DialogExampleComponent],
   imports: [

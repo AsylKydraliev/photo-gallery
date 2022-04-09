@@ -2,4 +2,10 @@ node_modules
 .idea
 public/uploads/*
 !public/uploads/.gitkeep
+!public/uploads/highway.jpeg
+!public/uploads/lake.jpeg
+!public/uploads/most.jpeg
+!public/uploads/nature.jpeg
+!public/uploads/sunbeam.jpeg
+!public/uploads/travel.jpeg
 
