@@ -36,21 +36,16 @@
   font-size: 35px;
 }
 
-.avatar{
-  margin: 0 30px 10px;
+.avatar mat-icon{
+  font-size: 35px;
 }
 
-.avatar img{
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-
-.cocktail-link{
+.avatar-link{
+  margin-right: 15px;
   font-size: 1.2rem;
   font-family: 'Prompt', sans-serif;
 }
 
-.cocktail-link:hover{
+.avatar-link:hover{
   border-bottom: 1px solid white;
 }

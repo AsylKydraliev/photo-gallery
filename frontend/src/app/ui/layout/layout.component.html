@@ -39,7 +39,7 @@
 
 <ng-template #userMenu>
   <nav>
-    <a mat-button [routerLink]="['images', (user | async)?._id]" class="cocktail-link">
+    <a mat-button [routerLink]="['images', (user | async)?._id]" class="avatar-link">
       <span>Hello, </span> {{ (user | async)?.displayName }}
     </a>
 

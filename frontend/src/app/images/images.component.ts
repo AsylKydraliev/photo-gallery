@@ -7,7 +7,6 @@ import { fetchImageInfoRequest, fetchImagesRequest } from '../store/images/image
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../ui/modal/modal.component';
 import { DialogExampleComponent } from '../dialog-example/dialog-example.component';
 
 @Component({
@@ -20,7 +19,6 @@ export class ImagesComponent implements OnInit, OnDestroy {
   loading: Observable<boolean>;
   api = environment.apiUrl;
   user: Observable<User | null>;
-  modelComponent!: ModalComponent;
   imagesData!: Image[];
   image!: Image;
   imageSub!: Subscription;
@@ -29,6 +27,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
     this.images = store.select(state => state.images.images);
     this.loading = store.select(state => state.images.fetchLoading);
     this.user = store.select(state => state.users.user);
+
     this.imageSub = this.images.subscribe(image => {
       this.imagesData = image;
     })

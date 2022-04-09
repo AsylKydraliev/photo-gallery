@@ -5,7 +5,6 @@ const Image = require("../models/Image");
 const path = require("path");
 const config = require("../config");
 const authorization = require("../middleware/authorization");
-const permit = require("../middleware/permit");
 
 const router = express.Router();
 
@@ -46,7 +45,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', authorization, permit('user', 'admin'), upload.single('image'), async (req, res, next) => {
+router.post('/', authorization, upload.single('image'), async (req, res, next) => {
     try{
         const image = new Image({
             user: req.body.user,
@@ -65,7 +64,7 @@ router.post('/', authorization, permit('user', 'admin'), upload.single('image'),
     }
 });
 
-router.delete('/:id', authorization, permit('admin'), async (req, res, next) => {
+router.delete('/:id', authorization, async (req, res, next) => {
     try{
         const image = await Image.findByIdAndRemove({_id: req.params.id});
 
