@@ -1,0 +1,20 @@
+<mat-progress-spinner
+  *ngIf="loading | async else imageArea" mode="indeterminate"
+></mat-progress-spinner>
+
+<ng-template #imageArea>
+  <div fxLayout="row wrap">
+    <div class="content" *ngFor="let image of images | async">
+      <mat-card class="example-card">
+        <img mat-card-image [src]="api + '/uploads/' + image.image" alt="cocktail image">
+        <mat-card-actions>
+<!--          <a =""></a>-->
+          <button mat-button [routerLink]="['info', image._id]">VIEW</button>
+          <button mat-button (click)="onRemove(image._id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+

@@ -10,8 +10,6 @@ import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } fro
 import { environment } from '../environments/environment';
 import { ImagesComponent } from './images/images.component';
 import { ValidateIdenticalDirective } from './directives/validate-identical.directive';
-import { RolesDirective } from './directives/roles.directive';
-import { HasRolesDirective } from './directives/has-roles.directive';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { MatCardModule } from '@angular/material/card';
@@ -50,8 +48,6 @@ const socialConfig: SocialAuthServiceConfig = {
     RegisterComponent,
     ImagesComponent,
     ValidateIdenticalDirective,
-    RolesDirective,
-    HasRolesDirective,
     LayoutComponent
   ],
   imports: [

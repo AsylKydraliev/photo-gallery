@@ -1,4 +1,5 @@
 import { LoginError, RegisterError, User } from '../models/user.model';
+import { Image } from '../models/image.model';
 
 export type UserState = {
   user: null | User,
@@ -10,7 +11,7 @@ export type UserState = {
 };
 
 export type ImagesState = {
-  images: null,
+  images: Image[],
   image: null,
   fetchLoading: boolean,
   fetchError: string | null,
