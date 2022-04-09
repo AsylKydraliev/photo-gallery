@@ -13,7 +13,7 @@ import {
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
   fetchImagesUserRequest,
-  fetchImagesUserSuccess
+  fetchImagesUserSuccess, removeImageRequest, removeImageSuccess
 } from './images.actions';
 import { ImagesService } from '../../services/images.service';
 
@@ -68,17 +68,17 @@ export class ImagesEffects {
       )
     ))
   );
-  //
-  // removeCocktail = createEffect(() => this.actions.pipe(
-  //   ofType(removeCocktailsRequest),
-  //   mergeMap(({id}) => this.cocktailsService.remove(id).pipe(
-  //       map(() => removeCocktailsSuccess()),
-  //       tap(() => {
-  //         this.helpers.openSnackbar('Cocktail deleted');
-  //       }),
-  //     )
-  //   ))
-  // );
+
+  removeImage = createEffect(() => this.actions.pipe(
+    ofType(removeImageRequest),
+    mergeMap(({id}) => this.imageService.remove(id).pipe(
+        map(() => removeImageSuccess()),
+        tap(() => {
+          this.helpers.openSnackbar('Photo deleted');
+        }),
+      )
+    ))
+  );
 
   constructor(
     private imageService: ImagesService,

@@ -7,7 +7,7 @@ import {
   fetchImagesRequest,
   fetchImagesSuccess, fetchImagesUserFailure,
   fetchImagesUserRequest,
-  fetchImagesUserSuccess
+  fetchImagesUserSuccess, removeImageRequest, removeImageSuccess
 } from './images.actions';
 
 const initialState: ImagesState = {
@@ -36,19 +36,13 @@ export const imagesReducer = createReducer(
   on(createImageRequest, state => ({...state, createLoading: true})),
   on(createImageSuccess, state => ({...state, createLoading: false})),
   on(createImageFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
-  //
-  // on(publishCocktailRequest, state => ({...state, publishLoading: true})),
-  // on(publishCocktailSuccess, state => ({...state, publishLoading: false})),
-  //
-  // on(addRatingRequest, state => ({...state, fetchLoading: true})),
-  // on(addRatingSuccess, (state, {cocktail}) => ({...state, fetchLoading: false, cocktail})),
-  //
-  // on(removeCocktailsRequest, (state, {id}) => {
-  //   const update = state.cocktails.filter(cocktail => {
-  //     return cocktail._id !== id;
-  //   });
-  //
-  //   return {...state, cocktails: update, removeLoading: true}
-  // }),
-  // on(removeCocktailsSuccess, state => ({...state, publishLoading: false})),
+
+  on(removeImageRequest, (state, {id}) => {
+    const update = state.images.filter(image => {
+      return image._id !== id;
+    });
+
+    return {...state, images: update, removeLoading: true}
+  }),
+  on(removeImageSuccess, state => ({...state, removeLoading: false})),
 )

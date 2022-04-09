@@ -1,11 +1,24 @@
 <div class="spinner">
   <mat-progress-spinner
-    *ngIf="loading | async else cocktailsArea" mode="indeterminate"
+    *ngIf="loading | async else imageArea" mode="indeterminate"
   ></mat-progress-spinner>
 </div>
 
-<ng-template #cocktailsArea>
-  <div fxLayoutAlign="end">
+<div *ngIf="!(images | async)">
+  <h1>
+    You don't have any photos.
+    Want to add?
+  </h1>
+  <button
+    mat-raised-button
+    routerLink="/addPhoto"
+  >Add new photo</button>
+</div>
+
+
+<ng-template #imageArea>
+  <div fxLayoutAlign="space-between">
+    <h1>{{ imageUsername }} gallery</h1>
     <button
       *ngIf="imageUser === userId"
       mat-raised-button
@@ -19,7 +32,7 @@
       </mat-card-header>
       <img mat-card-image [src]="api + '/uploads/' + image.image" alt="cocktail image">
       <mat-card-actions>
-        <button mat-button (click)="onRemove(image._id)">DELETE</button>
+        <button mat-button *ngIf="imageUser === userId" (click)="onRemove(image._id)">DELETE</button>
       </mat-card-actions>
     </mat-card>
   </div>

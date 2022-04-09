@@ -52,4 +52,8 @@ export class ImagesService {
 
     return this.http.post(environment.apiUrl + '/images', formData);
   }
+
+  remove(id: string) {
+    return this.http.delete(environment.apiUrl + '/images/' + id);
+  }
 }
