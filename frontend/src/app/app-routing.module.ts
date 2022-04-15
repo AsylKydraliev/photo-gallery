@@ -6,11 +6,13 @@ import { ImagesComponent } from './images/images.component';
 import { NotFoundComponent } from './not-found.component';
 import { MyImagesComponent } from './my-images/my-images.component';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
+import { RecoveryComponent } from './userManage/password-recovery/recovery.component';
 
 const routes: Routes = [
   {path: '', component: ImagesComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'recovery', component: RecoveryComponent},
   {path: 'images/:id', component: MyImagesComponent},
   {path: 'addPhoto', component: AddPhotoComponent},
   {path: '**', component: NotFoundComponent},

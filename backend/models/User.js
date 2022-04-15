@@ -35,6 +35,11 @@ const UserSchema = new Schema({
         default: 'user',
         enum: ['user', 'admin'],
     },
+    phone: {
+        type: String,
+        required: true
+    },
+    code: String,
     facebookId: String,
 });
 

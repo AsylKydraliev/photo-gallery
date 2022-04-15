@@ -4,12 +4,14 @@ export interface User {
   displayName: string,
   token: string,
   role: string,
+  phone: string,
 }
 
 export interface RegisterUser {
   email: string,
   displayName: string,
   password: string,
+  phone: string,
 }
 
 export interface LoginUserData {
@@ -32,7 +34,8 @@ export interface  RegisterError {
   errors: {
     password: FieldError,
     email: FieldError,
-    displayName: FieldError
+    displayName: FieldError,
+    phone: FieldError,
   }
 }
 

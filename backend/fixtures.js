@@ -20,6 +20,7 @@ const run = async () => {
         token: nanoid(),
         role: 'user',
         avatar: 'user.png',
+        phone: '+996700443344',
     }, {
         email: 'admin@gmail.com',
         displayName: 'admin',
@@ -27,6 +28,7 @@ const run = async () => {
         token: nanoid(),
         role: 'admin',
         avatar: 'user.png',
+        phone: '+996704950055',
     });
 
     await Image.create({

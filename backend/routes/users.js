@@ -1,9 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const {nanoid} = require("nanoid");
 const User = require('../models/User');
 const config = require("../config");
 const axios = require("axios");
+
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const { customAlphabet } = require('nanoid');
+const nanoid = customAlphabet('1234567890', 6);
 
 const router = express.Router();
 
@@ -13,6 +17,7 @@ router.post('/', async (req, res, next)=>{
            email: req.body.email,
            password: req.body.password,
            displayName: req.body.displayName,
+           phone: req.body.phone,
        });
 
        user.generateToken();
@@ -113,6 +118,57 @@ router.post('/facebookLogin', async (req, res, next) => {
         return res.send(user);
     }catch (e) {
         next(e);
+    }
+});
+
+router.post('/recovery', async (req, res, next)=>{
+    try{
+        const user = await User.findOne({email: req.body.email});
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            }
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: user.email,
+            subject: 'Код для подтверждения пароля',
+            text: nanoid(),
+        };
+
+        transporter.sendMail(mailOptions);
+
+        const updateUser = await User.findByIdAndUpdate({_id: user._id});
+        updateUser.code = mailOptions.text;
+        await updateUser.save();
+
+        return res.send(updateUser);
+    } catch(error){
+        if(error instanceof mongoose.Error.ValidationError){
+            return res.status(400).send(error);
+        }
+        return next(error);
+    }
+});
+
+router.post('/checkCode', async (req, res, next)=>{
+    try{
+        const user = await User.findOne({code: req.body.code});
+        if(user.code !== req.body.code) {
+            return res.status(400).send({error: 'Incorrect code!'})
+        }
+        console.log('Code correct!');
+
+        return res.send(user);
+    } catch(error){
+        if(error instanceof mongoose.Error.ValidationError){
+            return res.status(400).send(error);
+        }
+        return next(error);
     }
 });
 

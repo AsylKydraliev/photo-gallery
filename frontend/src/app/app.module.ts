@@ -34,6 +34,10 @@ import { AddPhotoComponent } from './add-photo/add-photo.component';
 import { FileInputComponent } from './ui/file-input/file-input.component';
 import { DialogExampleComponent } from './dialog-example/dialog-example.component';
 import { NotFoundComponent } from './not-found.component';
+import { RecoveryComponent } from './userManage/password-recovery/recovery.component';
+import {
+  DialogExamplePasswordComponent
+} from './userManage/password-recovery/dialog-password-recovery/dialog-example-password.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -59,7 +63,9 @@ const socialConfig: SocialAuthServiceConfig = {
     AddPhotoComponent,
     FileInputComponent,
     DialogExampleComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RecoveryComponent,
+    DialogExamplePasswordComponent
   ],
   entryComponents: [DialogExampleComponent],
   imports: [

@@ -27,6 +27,15 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input name="phone" required matInput ngModel #phone="ngModel"/>
+          <mat-error
+            *ngIf="phone.touched && phone.hasError('required')"
+          >Phone is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
           <mat-label>Display name</mat-label>
           <input name="displayName" required autocomplete="username" matInput ngModel #displayName="ngModel"/>
           <mat-error

@@ -1,0 +1,38 @@
+<mat-dialog-content class="mat-typography">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-card class="register-form">
+      <mat-card-title>Введите полученный код</mat-card-title>
+      <mat-card-content>
+        <form
+          #f="ngForm"
+          fxLayout="column"
+          autocomplete="off"
+          (ngSubmit)="onSubmit()"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Код подтверждения</mat-label>
+            <input name="code" required matInput ngModel #code="ngModel"/>
+            <mat-error
+              *ngIf="code.touched && code.hasError('required')"
+            >Code is required!
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="f.invalid"
+            mat-dialog-close
+          >Отправить
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Закрыть</button>
+</mat-dialog-actions>

@@ -25,4 +25,12 @@ export class UsersService {
   logoutUser(){
     return this.http.delete(environment.apiUrl + '/users/sessions');
   }
+
+  recoveryPassword(email: {}) {
+    return this.http.post(environment.apiUrl + `/users/recovery`, email);
+  }
+
+  sendCode(code: {}) {
+    return this.http.post(environment.apiUrl + `/users/checkCode`, code);
+  }
 }

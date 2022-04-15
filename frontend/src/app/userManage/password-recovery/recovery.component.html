@@ -1,0 +1,47 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card class="register-form">
+    <mat-card-title>Восстановление пароля</mat-card-title>
+    <mat-card-content>
+      <form
+        #f="ngForm"
+        fxLayout="column"
+        autocomplete="off"
+        (ngSubmit)="onSubmit()"
+      >
+        <div *ngIf="error | async" class="error">
+          {{ (error | async)?.error }}
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input name="email" required autocomplete="username" matInput email ngModel #email="ngModel"/>
+          <mat-error
+            *ngIf="email.touched && email.hasError('required')"
+          >Email is required!
+          </mat-error>
+          <mat-error
+            *ngIf="email.touched && email.hasError('email')"
+          >Wrong email address!
+          </mat-error>
+        </mat-form-field>
+
+        <ng-template #btn>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            (click)="openDialog()"
+            [disabled]="f.invalid"
+          >Отправить</button>
+        </ng-template>
+        <mat-progress-bar mode="indeterminate" *ngIf="(loading === true) else btn"></mat-progress-bar>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+
+
+
