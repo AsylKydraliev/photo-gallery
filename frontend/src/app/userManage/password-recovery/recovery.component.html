@@ -9,7 +9,7 @@
         (ngSubmit)="onSubmit()"
       >
         <div *ngIf="error | async" class="error">
-          {{ (error | async)?.error }}
+          {{ (error | async) }}
         </div>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -33,12 +33,13 @@
             [disabled]="f.invalid"
           >Отправить</button>
         </ng-template>
-        <mat-progress-bar mode="indeterminate" *ngIf="(loading === true) else btn"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate" *ngIf="(loading | async) else btn"></mat-progress-bar>
 
       </form>
     </mat-card-content>
   </mat-card>
 </div>
+
 
 
 

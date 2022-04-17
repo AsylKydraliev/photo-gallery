@@ -8,6 +8,8 @@ export type UserState = {
   loginLoading: boolean,
   loginError: null | LoginError,
   fbLoading: boolean,
+  code: string | null,
+  codeError: string | null,
 };
 
 export type ImagesState = {

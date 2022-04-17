@@ -17,7 +17,6 @@ router.post('/', async (req, res, next)=>{
            email: req.body.email,
            password: req.body.password,
            displayName: req.body.displayName,
-           phone: req.body.phone,
        });
 
        user.generateToken();
@@ -148,27 +147,35 @@ router.post('/recovery', async (req, res, next)=>{
 
         return res.send(updateUser);
     } catch(error){
-        if(error instanceof mongoose.Error.ValidationError){
-            return res.status(400).send(error);
-        }
-        return next(error);
+        next(error)
     }
 });
 
 router.post('/checkCode', async (req, res, next)=>{
     try{
-        const user = await User.findOne({code: req.body.code});
+        const user = await User.findOne({email: req.body.email});
+
         if(user.code !== req.body.code) {
             return res.status(400).send({error: 'Incorrect code!'})
         }
-        console.log('Code correct!');
+
+        return res.send(user.code);
+    } catch(error){
+        next(error);
+    }
+});
+
+router.put('/editPassword', async (req, res, next)=>{
+    try{
+        const user = await User.findOne({email: req.body.email});
+        console.log(user);
+        user.password = req.body.password;
+        await user.save();
+        console.log(user);
 
         return res.send(user);
     } catch(error){
-        if(error instanceof mongoose.Error.ValidationError){
-            return res.status(400).send(error);
-        }
-        return next(error);
+        next(error);
     }
 });
 

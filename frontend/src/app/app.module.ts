@@ -38,6 +38,7 @@ import { RecoveryComponent } from './userManage/password-recovery/recovery.compo
 import {
   DialogExamplePasswordComponent
 } from './userManage/password-recovery/dialog-password-recovery/dialog-example-password.component';
+import { NewPasswordComponent } from './userManage/new-password/new-password.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -65,7 +66,8 @@ const socialConfig: SocialAuthServiceConfig = {
     DialogExampleComponent,
     NotFoundComponent,
     RecoveryComponent,
-    DialogExamplePasswordComponent
+    DialogExamplePasswordComponent,
+    NewPasswordComponent
   ],
   entryComponents: [DialogExampleComponent],
   imports: [

@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { fbLoginUserData, LoginUserData, RegisterUser, User } from '../models/user.model';
+import {
+  CodeUserData,
+  EditPasswordData,
+  fbLoginUserData,
+  LoginUserData,
+  RegisterUser,
+  User
+} from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +38,16 @@ export class UsersService {
     return this.http.post(environment.apiUrl + `/users/recovery`, email);
   }
 
-  sendCode(code: {}) {
-    return this.http.post(environment.apiUrl + `/users/checkCode`, code);
+  sendCode(userData: CodeUserData) {
+    return this.http.post<string>(environment.apiUrl + `/users/checkCode`, userData).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  editPassword(password: EditPasswordData) {
+    console.log(password)
+    return this.http.put(environment.apiUrl + `/users/editPassword`, password);
   }
 }

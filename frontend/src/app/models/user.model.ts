@@ -4,17 +4,25 @@ export interface User {
   displayName: string,
   token: string,
   role: string,
-  phone: string,
 }
 
 export interface RegisterUser {
   email: string,
   displayName: string,
   password: string,
-  phone: string,
 }
 
 export interface LoginUserData {
+  email: string,
+  password: string
+}
+
+export interface CodeUserData {
+  email: string,
+  code: string
+}
+
+export interface EditPasswordData {
   email: string,
   password: string
 }
