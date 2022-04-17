@@ -67,7 +67,7 @@ const socialConfig: SocialAuthServiceConfig = {
     NotFoundComponent,
     RecoveryComponent,
     DialogExamplePasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
   ],
   entryComponents: [DialogExampleComponent],
   imports: [

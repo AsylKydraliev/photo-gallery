@@ -10,6 +10,7 @@ export type UserState = {
   fbLoading: boolean,
   code: string | null,
   codeError: string | null,
+  userEmail: string | null
 };
 
 export type ImagesState = {

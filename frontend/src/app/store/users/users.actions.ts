@@ -25,7 +25,7 @@ export const loginFbSuccess = createAction('[Users] LoginFb Success', props<{use
 export const loginFbFailure = createAction('[Users] LoginFb Failure', props<{error: null | LoginError}>());
 
 export const sendEmailRequest = createAction('[User] SendEmail Request', props<{email: {}}>());
-export const sendEmailSuccess = createAction('[User] SendEmail Success');
+export const sendEmailSuccess = createAction('[User] SendEmail Success',  props<{user: User}>());
 
 export const sendUserCodeRequest = createAction('[User] SendCode Request', props<{userData: CodeUserData}>());
 export const sendUserCodeSuccess = createAction('[User] SendCode Success', props<{code: string}>());

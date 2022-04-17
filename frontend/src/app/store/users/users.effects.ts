@@ -75,7 +75,7 @@ export class UsersEffects {
   sendEmail = createEffect(() => this.actions.pipe(
     ofType(sendEmailRequest),
     mergeMap( email => this.usersService.recoveryPassword(email).pipe(
-      map(() => sendEmailSuccess()),
+      map(user => sendEmailSuccess({user})),
     ))
   ));
 

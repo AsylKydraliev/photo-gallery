@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   recoveryPassword(email: {}) {
-    return this.http.post(environment.apiUrl + `/users/recovery`, email);
+    return this.http.post<User>(environment.apiUrl + `/users/recovery`, email);
   }
 
   sendCode(userData: CodeUserData) {

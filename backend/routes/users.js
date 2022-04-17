@@ -168,10 +168,8 @@ router.post('/checkCode', async (req, res, next)=>{
 router.put('/editPassword', async (req, res, next)=>{
     try{
         const user = await User.findOne({email: req.body.email});
-        console.log(user);
         user.password = req.body.password;
         await user.save();
-        console.log(user);
 
         return res.send(user);
     } catch(error){
